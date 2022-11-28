@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+</head>
+<body>
+
+<!--<div th:each="user : ${users}">-->
+<!--  <a th:href="@{/admin/users/{id}(id=${user.getId()})}"-->
+<!--     th:text="${'Name: ' + user.getName() + ' , Age: ' + user.getAge() + ' , Password: ' + user.getPassword() + ' , Role: ' + user.authorities}">user</a>-->
+<!--</div>-->
+<table>
+    <tr><td>Name</td><td>Age</td><td>Password</td><td>Role</td><td></td></tr>
+    <div th:each="user : ${users}">
+    <tr><th th:text="${user.getName()}">VALUE</th><th th:text="${user.getAge()}">VALUE</th>
+        <th th:text="${user.getPassword()}">VALUE</th><th th:text="${user.authorities}">VALUE</th>
+    <th> <form method="GET" th:action="@{/admin/users/{id} (id = ${user.getId()})}">
+        <input type="submit" value="info">
+    </form> </th></tr>
+        </div>
+</table>
+<br/>
+<hr/>
+<form method="GET" th:action="@{/admin/users/new}">
+    <input type="submit" value="Create new user">
+</form>
+<!--<a href="/admin/users/new">Create new User</a>-->
+<br/>
+<form method="GET" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
+<!--<a href="/logout">LOGOUT</a>-->
+</body>
+</html>
+
