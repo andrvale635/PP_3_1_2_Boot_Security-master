@@ -39,8 +39,6 @@ public class UserDaoImpl implements UserDao {
         entityManager.remove(userToBeDeleted);
     }
 
-
-//////////////////////////////////////////////////////////////////////////////
     @Override
     public User showUserByName(String username) {
         List<User> users = entityManager.createQuery("select u from User u", User.class).getResultList();
