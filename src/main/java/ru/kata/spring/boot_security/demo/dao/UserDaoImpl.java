@@ -42,6 +42,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User showUserByName(String username) {
         List<User> users = entityManager.createQuery("select u from User u", User.class).getResultList();
-        return users.stream().filter(u -> u.getName().equals(username)).findAny().orElse(null);
+        return users.stream().filter(u -> u.getUsername().equals(username)).findAny().orElse(null);
     }
 }

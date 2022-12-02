@@ -34,21 +34,25 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("info", userService.showUserByName(principal.getName()));
         return "users/listUsers";
     }
 
     @GetMapping("/admin/users/{id}")
-    public String showUserById(@PathVariable("id") int id, Model model) {
+    public String showUserById(@PathVariable("id") int id, Model model, Principal principal) {
         model.addAttribute("user", userService.showUserById(id));
+        model.addAttribute("info", userService.showUserByName(principal.getName()));
+        model.addAttribute("users", userService.getAllUsers());
         return "users/show";
     }
 
     @GetMapping("/admin/users/new")
-    public String newUser(Model model) {
+    public String newUser(Model model, Principal principal) {
         model.addAttribute("user", new User());
         model.addAttribute("roles",roleDao.findAll());
+        model.addAttribute("info", userService.showUserByName(principal.getName()));
         return "users/new";
     }
 
@@ -59,9 +63,10 @@ public class UserController {
     }
 
     @GetMapping("/admin/users/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") int id, Principal principal) {
         model.addAttribute("user", userService.showUserById(id));
         model.addAttribute("roles",roleDao.findAll());
+        model.addAttribute("info", userService.showUserByName(principal.getName()));
         return "users/edit";
     }
 

@@ -25,7 +25,11 @@ public class User implements UserDetails {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(unique = true)
+    private String username;
+
+    @Column
     private String name;
     @Column
     private int age;
@@ -37,6 +41,10 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public int getAge() {
         return age;
@@ -99,7 +107,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override

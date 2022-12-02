@@ -3,30 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>User</title>
+    <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <div style="background:#333333" class="container-fluid">
+        <div class="navbar-header">
+            <a style="color: white" class="navbar-brand" th:href="@{/admin}"
+               th:text="${info.getUsername() + ' with roles : ' + info.getAuthorities()}">VALUE</a>
+        </div>
+        <div class="text-right">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a style="color: grey" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-2">
+        <div th:each="user : ${users}">
+            <h4>
+                <a class="text-uppercase" th:href="@{/admin/users/{id}(id=${user.getId()})}"
+                   th:text="${user.getUsername()}">VALUE</a></h4>
+        </div>
+    </div>
 
-<table>
-    <tr>
-        <td>Id</td><td>Name</td><td>Age</td><td>Password</td><td></td>
-    </tr>
-    <tr>
-        <th th:text="${user.getId()}">VALUE</th><th th:text="${user.getName()}">VALUE</th>
-        <th th:text="${user.getAge()}">VALUE</th><th th:text="${user.authorities}">VALUE</th>
-        <th><form th:method="GET" th:action="@{/admin/users/{id}/edit(id=${user.getId()})}">
-            <input type="submit" value="Edit">
-        </form> </th>
-    </tr>
-</table>
-<br/>
-<br/>
-<form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.getId()})}">
-        <input type="submit" value="Delete"/>
-</form>
-<hr/>
-<br/>
-<form method="GET" th:action="@{/logout}">
-    <input type="submit" value="Logout">
-</form>
+    <div class="col-md-10">
+
+            <table class="table">
+                <tr>
+                    <th>Id</th><th>Username</th><th>Name</th><th>Age</th><th>Password</th><th>Role</th></td>
+                </tr>
+                <tr><th th:text="${user.getId()}">VALUE</th><th th:text="${user.getUsername()}">VALUE</th>
+                    <th th:text="${user.getName()}">VALUE</th>
+                    <th th:text="${user.getAge()}">VALUE</th><th th:text="${user.getPassword()}">VALUE</th>
+                    <th th:text="${user.authorities}">VALUE</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
